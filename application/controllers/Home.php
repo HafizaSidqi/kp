@@ -1,17 +1,16 @@
 <?php
 class Home extends CI_Controller
 {
-    public function index($nama = 'User')
+    public function __construct()
     {
-        $data['judul'] = "Home";
-        $data['nama'] = $nama;
-        $this->load->view('templates/header', $data);
-        // setiap array yang dikirimkan ke view 
-        // akan otomatis diubah menjadi sebuah variable
-        // jadi dari $data['judul], nanti di view dapat diambil dengan 
-        // $judul aja.
-
-        $this->load->view('home/index', $data);
-        $this->load->view('templates/footer');
+		parent::__construct();
+        $this->load->model("links_model");
+	}
+    
+    public function index()
+    {
+        $data["links"] = $this->links_model->getAll();
+        //$data["Ten"] = $this->links_model->getTen();
+        $this->load->view('link/links', $data);
     }
 }
